@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchQueueData } from "../mockApi";
 import CustomerDetails from "./components/Customer";
+import TextInput from "./components/TextInput";
 
 const QueueScreen = () => {
   const [customers, setCustomers] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     fetchQueueData()
@@ -15,13 +17,25 @@ const QueueScreen = () => {
 
   return (
     <>
-      {customers.map((customer) => (
-        <CustomerDetails
-          key={customer.id}
-          name={customer.customer.name}
-          email={customer.customer.emailAddress}
-        />
-      ))}
+      <TextInput
+        type="text"
+        placeholder={"Filter by customer name"}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      {customers
+        .filter((customer) =>
+          customer.customer.name
+            .toLowerCase()
+            .includes(inputValue.toLowerCase())
+        )
+        .map((customer) => (
+          <CustomerDetails
+            key={customer.id}
+            name={customer.customer.name}
+            email={customer.customer.emailAddress}
+          />
+        ))}
     </>
   );
 };
