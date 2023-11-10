@@ -1,46 +1,25 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from "react";
 import { fetchQueueData } from "../mockApi";
+import CustomerDetails from "./components/Customer";
 
-// eslint-disable-next-line
-import base64 from 'base-64';
+const QueueScreen = () => {
+  const [customers, setCustomers] = useState([]);
 
+  useEffect(() => {
+    fetchQueueData()
+      .then((response) => response.json())
+      .then((json) => {
+        setCustomers(json.queueData.queue.customersToday);
+      });
+  }, []);
 
-export default class extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            customers: []
-        };
-    }
+  return (
+    <>
+      {customers.map((customer) => (
+        <CustomerDetails key={customer.id} name={customer.customer.name} />
+      ))}
+    </>
+  );
+};
 
-    componentDidMount() {
-        fetchQueueData()
-            .then(response => response.json())
-            .then(json => {
-                this.setState({
-                    customers: json.queueData.queue.customersToday
-                })
-            });
-    }
-
-    render() {
-        let customers = [];
-        for(let i = 0; i < this.state.customers.length; ++i) {
-            customers.push(
-                <div key={this.state.customers[i].id}>
-                    <div>
-                        {this.state.customers[i].customer.name}
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <div>
-                {
-                    customers
-                }
-            </div>
-        );
-    }
-}
+export default QueueScreen;
