@@ -34,6 +34,7 @@ const QueueScreen = () => {
             key={customer.id}
             name={customer.customer.name}
             email={customer.customer.emailAddress}
+            expectedTime={customer.expectedTime}
           />
         ))}
     </>
