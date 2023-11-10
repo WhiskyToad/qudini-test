@@ -16,7 +16,11 @@ const QueueScreen = () => {
   return (
     <>
       {customers.map((customer) => (
-        <CustomerDetails key={customer.id} name={customer.customer.name} />
+        <CustomerDetails
+          key={customer.id}
+          name={customer.customer.name}
+          email={customer.customer.emailAddress}
+        />
       ))}
     </>
   );
