@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { fetchQueueData } from "../mockApi";
-import CustomerDetails from "./components/Customer";
-import TextInput from "./components/TextInput";
+import { fetchQueueData } from "../mockApi.js";
+import CustomerDetails from "./components/Customer.js";
+import TextInput from "./components/TextInput.js";
 
 const QueueScreen = () => {
   const [customers, setCustomers] = useState([]);

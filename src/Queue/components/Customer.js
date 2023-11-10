@@ -28,6 +28,7 @@ export default (props) => {
   return (
     <CustomerCard>
       <ProfilePicture
+        data-testid="profilePicture"
         style={{ backgroundImage: `url(${imageUrl}`, backgroundSize: "cover" }}
       />
       <Content>
